@@ -2,7 +2,7 @@
 $title = 'Список продуктов';
 require_once '../../templates/header.php';
 
-$query = "SELECT p.id, p.name, p.price, p.picture, p.description, c.name as category
+$query = "SELECT p.id, p.name, p.price, p.picture, p.description, p.detailed, c.name as category
         FROM products as p
         JOIN categories as c ON p.category_id = c.id";
 $res = $pdo->query($query);
@@ -30,6 +30,7 @@ if (isset($_SESSION['createProductErrors'])) {
 <form method="POST" enctype="multipart/form-data" action="/action/admin/createProduct.php">
     <input value="<?= $_SESSION['lastProductCreate']['name'] ?? '' ?>" class="form-control mb-2" name='name' placeholder="Наименование продукта">
     <textarea class="form-control mb-2" name='description' placeholder="Описание"><?= $_SESSION['lastProductCreate']['description'] ?? '' ?></textarea>
+    <textarea class="form-control mb-2" name='detailed' placeholder="Детальное описание"><?= $_SESSION['lastProductCreate']['detailed'] ?? '' ?></textarea>
     <input value="<?= $_SESSION['lastProductCreate']['price'] ?? '' ?>" class="form-control mb-2" name='price' placeholder="Цена">
     <input type="file" name='file' class="form-control mb-2">
     <select class="form-control mb-2" name='category_id'>
@@ -76,7 +77,11 @@ if (isset($_SESSION['createProductErrors'])) {
             "
             <tr>
                 <td>{$product['id']}</td>
-                <td>{$product['name']}</td>
+                <td>
+                <a href='update_product.php?id={$product['id']}'>
+                {$product['name']}
+                </a>
+                </td>
                 <td>{$product['description']}</td>
                 <td>{$product['price']}</td>
                 <td>{$product['category']}</td>
@@ -84,7 +89,7 @@ if (isset($_SESSION['createProductErrors'])) {
                     <img height='100' src='{$path}{$product['picture']}'>
                 </td>
                 <td class='text-center'>
-                <form method='post' action='../../action/del_product.php'>
+                <form method='post' action='../../action/admin/del_product.php'>
                     <input type='hidden' name='id' value='{$product['id']}'>
                     <button type='submit' class='btn btn-danger btn-user-delete'>x</button>
                 </form>

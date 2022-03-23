@@ -42,7 +42,7 @@ $categories = $res->fetchAll();
                 <td>{$category['name']}</td>
                 <td>{$category['description']}</td>
                 <td class='text-center'>
-                <form method='post' action='../../action/del_category.php'>
+                <form method='post' action='../../action/admin/del_category.php'>
                     <input type='hidden' name='id' value='{$category['id']}'>
                     <button type='submit' class='btn btn-danger btn-user-delete'>x</button>
                 </form>

@@ -6,11 +6,10 @@ require $document_root . '../config.php';
 $productId =  $_POST['id'];
 
 
-
 $query = "DELETE FROM products WHERE id = :id";
 $res = $pdo->prepare($query);
 $res->execute([
     ':id' => $productId,
 ]);
 
-header('Location: ../pages/admin/products.php');
+header('Location: ../../pages/admin/products.php');

@@ -17,6 +17,24 @@ require $document_root . '../config.php';
         <?= $title ?>
     </title>
     <style>
+        .card-image-in{
+            width: 100%;
+        }
+        .card-price-in{
+            width: 100%;
+            text-align: center;
+            font-size: 23px;
+            border-bottom: 2px solid grey;
+        }
+        .card-img-in{
+            width: 100%;
+        }
+        .card-in{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+        }
         .btn-user-delete {
             border-radius: 100px;
             padding: 2px 12px 4px 12px;
@@ -84,6 +102,13 @@ require $document_root . '../config.php';
                             Корзина (<?= array_sum($_SESSION['products'] ?? []) ?>)
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link <?= $_SERVER['PHP_SELF'] == '/pages/favorites.php' ? 'active' : '' ?>" href="/pages/favorites.php">
+                            Избранное (<?= array_sum($_SESSION['favorites'] ?? []) ?>)
+                        </a>
+                    </li>
+
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

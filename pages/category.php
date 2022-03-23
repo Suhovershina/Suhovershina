@@ -30,10 +30,11 @@ foreach ($products as $product){
         <div class='col-3 mb-2'>
             <div class='card'>
             <div class='card-image'>
+
                 <img class='card-img-top' src='/images/products/{$product['picture']}' alt='Card image cap'>
             </div>
                     <div class='card-body'>
-                    <h5 class='card-title'>{$product['name']}</h5>
+                    <h5 class='card-title'><a href='/pages/product.php?id={$product['id']}'>{$product['name']}</a></h5>
                         <p class='card-text'>{$product['description']}</p>
                             <div class='card-price'>
                                 {$product['price']}
@@ -56,12 +57,34 @@ foreach ($products as $product){
                                 <button class='btn btn-success btn-product-add'>+</button>
                             </form>
                             </div>
+                        </div>";
+
+                        if (isset($_SESSION['favorites'][$product['id']])) {
+                            $cards .= "<div class='btn'>
+                            <div>
+                               <form method='post' action='/action/favorites/remove_product.php'>
+                                   <input name='id' hidden value='{$product['id']}'>
+                                   <input name='category_id' hidden value='{$product['category_id']}'>
+                                   <button class='btn btn-danger'>Удалить из избранного</button>
+                               </form>
+                           </div>
+                        </div>";
+                        } else {
+                            $cards .= "<div class='btn'>
+                            <div>
+                            <form method='post' action='/action/favorites/add_product.php'>
+                                    <input name='id' hidden value='{$product['id']}'>
+                                    <input name='category_id' hidden value='{$product['category_id']}'>
+                                    <button class='btn btn-success'>Добавить в избранное</button>
+                            </form>
                         </div>
-                    </div>
-            </div>
-        </div>
+                        </div>";
+                        }
        
-   ";
+                $cards .= "</div>
+            </div>
+        </div>";
+       
 }
 
 ?>

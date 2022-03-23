@@ -20,6 +20,7 @@ $name = $_POST['name'];
 $description = $_POST['description'];
 $price = $_POST['price'];
 $category_id = $_POST['category_id'];
+$detailed = $_POST['detailed'];
 
 if (!$name) {
     $errors[] = 'Наименование не может быть пустым';
@@ -27,6 +28,10 @@ if (!$name) {
 
 if (!$description) {
     $errors[] = 'Описание не может быть пустым';
+}
+
+if (!$detailed) {
+    $errors[] = 'Детальное описание не может быть пустым';
 }
 
 if (!$price) {
@@ -56,8 +61,8 @@ $ext = $temp[count($temp) - 1];
 $fileName = time() . rand(10000, 99999) . '.' . $ext;
 
 move_uploaded_file($file['tmp_name'], "$document_root/images/products/$fileName");
-$query = "INSERT INTO products (name, description, price, category_id, picture)
-          VALUES(:name, :description, :price, :category_id, :picture)";
+$query = "INSERT INTO products (name, description, price, category_id, picture, detailed)
+          VALUES(:name, :description, :price, :category_id, :picture, :detailed)";
 
 $res = $pdo->prepare($query);
 $res->execute([
@@ -65,7 +70,8 @@ $res->execute([
     ':description' => $description,
     ':price' => $price,
     ':category_id' => $category_id,
-    ':picture' => $fileName
+    ':picture' => $fileName,
+    ':detailed' => $detailed
 ]);
 
 

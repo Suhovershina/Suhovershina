@@ -26,13 +26,6 @@ foreach ($categories as $category){
    ";
 }
 
-$query = "SELECT * FROM products";
-$res = $pdo->query($query);
-$products = $res->fetchAll();
-
-$products = ' ';
-
-
 
 ?>
 
